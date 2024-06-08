@@ -99,9 +99,9 @@ module.exports = grammar({
     empty_statement: $ => ';',
 
     primitive_type: $ => choice(
-      ...numeric_types, 
-      'bool', 
-      'char', 
+      ...numeric_types,
+      'bool',
+      'char',
       prec.right(seq('str', optional(seq('[', $.integer_literal, ']'))))
     ),
 
@@ -578,10 +578,10 @@ module.exports = grammar({
         $._pattern,
       )),
       optional(seq(
-        ':', 
+        ':',
         field('type', choice($._type, $._literal, $.self, $.index_expression))
       )),
-    ),    
+    ),
 
     visibility_modifier: $ => prec.right(
       seq(
@@ -1154,7 +1154,7 @@ module.exports = grammar({
 
     asm_content: $ => prec.right(seq(
       repeat1(seq(
-        $.identifier, 
+        $.identifier,
         optional(
           seq(':', choice($._type, $.self))),
         optional(';'),
@@ -1329,8 +1329,7 @@ module.exports = grammar({
       optional(choice(
         seq('\\', choice(
           /[^xu]/,
-          /u[0-9a-fA-F]{4}/,
-          /u{[0-9a-fA-F]+}/,
+          /uu?[0-9a-fA-F]{4}/,
           /x[0-9a-fA-F]{2}/
         )),
         /[^\\']/
@@ -1342,8 +1341,7 @@ module.exports = grammar({
       seq('\\',
         choice(
           /[^xu]/,
-          /u[0-9a-fA-F]{4}/,
-          /u{[0-9a-fA-F]+}/,
+          /uu?[0-9a-fA-F]{4}/,
           /x[0-9a-fA-F]{2}/
         )
       )),
